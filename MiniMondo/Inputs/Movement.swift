@@ -3,7 +3,7 @@ enum Settings {
     static var translationSpeed: Float { 3.0 }
     static var translationRunSpeed: Float { 6.0 }
     static var mouseScrollSensitivity: Float { 0.1 }
-    static var mousePanSensitivity: Float { 0.008 }
+    static var mousePanSensitivity: Float { 0.004 }
 }
 
 protocol Movement where Self: Transformable { }

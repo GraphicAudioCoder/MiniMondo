@@ -40,7 +40,6 @@ extension MDLVertexDescriptor {
             offset: offset,
             bufferIndex: VertexBuffer.index)
         offset += MemoryLayout<float3>.stride
-        
         vertexDescriptor.layouts[VertexBuffer.index] = MDLVertexBufferLayout(stride: offset)
         
         vertexDescriptor.attributes[UV.index] = MDLVertexAttribute(
@@ -48,8 +47,31 @@ extension MDLVertexDescriptor {
             format: .float2,
             offset: 0,
             bufferIndex: UVBuffer.index)
-        
         vertexDescriptor.layouts[UVBuffer.index] = MDLVertexBufferLayout(stride: MemoryLayout<float2>.stride)
+        
+        vertexDescriptor.attributes[Color.index] = MDLVertexAttribute(
+            name: MDLVertexAttributeColor,
+            format: .float3,
+            offset: 0,
+            bufferIndex: ColorBuffer.index)
+        vertexDescriptor.layouts[ColorBuffer.index] = MDLVertexBufferLayout(stride: MemoryLayout<float3>.stride)
+        
+        vertexDescriptor.attributes[Tangent.index] =
+          MDLVertexAttribute(
+            name: MDLVertexAttributeTangent,
+            format: .float3,
+            offset: 0,
+            bufferIndex: TangentBuffer.index)
+        vertexDescriptor.layouts[TangentBuffer.index] = MDLVertexBufferLayout(stride: MemoryLayout<float3>.stride)
+        
+        vertexDescriptor.attributes[Bitangent.index] =
+          MDLVertexAttribute(
+            name: MDLVertexAttributeBitangent,
+            format: .float3,
+            offset: 0,
+            bufferIndex: BitangentBuffer.index)
+        vertexDescriptor.layouts[BitangentBuffer.index] = MDLVertexBufferLayout(stride: MemoryLayout<float3>.stride)
+        
         return vertexDescriptor
     }
 }

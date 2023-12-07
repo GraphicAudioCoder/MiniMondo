@@ -9,7 +9,7 @@ class GameController: NSObject {
     
     init(metalView: MTKView) {
         renderer = Renderer(metalView: metalView)
-        scene = Preferences.currentScene
+        scene = Setup.currentScene
         super.init()
         metalView.delegate = self
         mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)

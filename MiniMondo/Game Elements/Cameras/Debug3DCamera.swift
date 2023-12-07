@@ -2,8 +2,11 @@ import CoreGraphics
 import Cocoa
 
 struct Debug3DCamera: Camera {
-    var transform = Transform()
+    var models: [GameObject] = []
     
+    var target: float3 = [0.0, 0.0, 0.0]
+    var distance: Float = 0.0
+    var transform = Transform()
     var aspect: Float = 1.0
     var fov = Float(70).degreesToRadians
     var near: Float = 0.1

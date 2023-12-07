@@ -1,5 +1,5 @@
 import MetalKit
 
-class Runner {
-    static let currentScene: GameScene = GizmoSphereScene()
+class Setup {
+    static let currentScene: GameScene = GameTestScene()
 }

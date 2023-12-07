@@ -19,7 +19,20 @@ class Model: GameObject {
         }
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         let asset = MDLAsset(url: assetURL, vertexDescriptor: .externalLayout, bufferAllocator: allocator)
-        let (mdlMeshes, mtkMeshes) = try! MTKMesh.newMeshes(asset: asset, device: Renderer.device)
+        var mtkMeshes: [MTKMesh] = []
+        let mdlMeshes =
+        asset.childObjects(of: MDLMesh.self) as? [MDLMesh] ?? []
+        _ = mdlMeshes.map { mdlMesh in
+            mdlMesh.addTangentBasis(
+                forTextureCoordinateAttributeNamed:
+                    MDLVertexAttributeTextureCoordinate,
+                tangentAttributeNamed: MDLVertexAttributeTangent,
+                bitangentAttributeNamed: MDLVertexAttributeBitangent)
+            mtkMeshes.append(
+                try! MTKMesh(
+                    mesh: mdlMesh,
+                    device: Renderer.device))
+        }
         meshes = zip(mdlMeshes, mtkMeshes).map {
             Mesh(mdlMesh: $0.0, mtkMesh: $0.1)
         }
@@ -33,6 +46,7 @@ class Model: GameObject {
         params.tiling = tiling
         encoder.setRenderPipelineState(renderPipeline)
         uniforms.modelMatrix = transform.modelMatrix
+        uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
         
         encoder.setVertexBytes(
             &uniforms,
@@ -53,10 +67,19 @@ class Model: GameObject {
             }
             
             for submesh in mesh.submeshes {
+                var material = submesh.material
+                encoder.setFragmentBytes(
+                    &material,
+                    length: MemoryLayout<Material>.stride,
+                    index: MaterialBuffer.index)
                 
                 encoder.setFragmentTexture(
-                  submesh.textures.baseColor,
-                  index: BaseColor.index)
+                    submesh.textures.baseColor,
+                    index: BaseColor.index)
+                
+                encoder.setFragmentTexture(
+                    submesh.textures.normal,
+                    index: NormalTexture.index)
                 
                 encoder.drawIndexedPrimitives(
                     type: .triangle,

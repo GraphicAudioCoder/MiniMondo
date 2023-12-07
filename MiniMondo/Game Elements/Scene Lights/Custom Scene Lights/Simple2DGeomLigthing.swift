@@ -1,8 +1,10 @@
-//
-//  Simple2DGeomLigthing.swift
-//  MiniMondo
-//
-//  Created by riccardo giovanni rosso on 04/12/23.
-//
+import MetalKit
 
-import Foundation
+class Simple2DGeomLigthing: SceneLighting {
+    override init() {
+        super.init()
+        var light = ambientLight
+        light.color = [1, 1, 1]
+        lights.append(light)
+    }
+}

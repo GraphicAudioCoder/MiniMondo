@@ -1,21 +1,12 @@
 import MetalKit
 
 class GameScene {
-    var camera = Debug3DCamera()
+    var camera: Camera!
     
-    lazy var house: GameObject = Model(name: "lowpoly-house.obj")
-    lazy var ground: GameObject = {
-        var ground = Model(name: "plane.obj")
-        ground.tiling = 16
-        ground.scale = 40
-        return ground
-    }()
-    lazy var models: [GameObject] = [ground, house]
+    lazy var models: [GameObject] = []
+    lazy var lighting = SceneLighting()
     
-    init() {
-//        camera.hideCursor()
-        camera.position = [0, 1.5, -5]
-    }
+    init() { }
     
     func update(size: CGSize) {
         camera.update(size: size)

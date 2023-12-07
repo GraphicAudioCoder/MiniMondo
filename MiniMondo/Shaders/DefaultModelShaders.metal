@@ -14,12 +14,12 @@ struct VertexOut {
 };
 
 vertex VertexOut vertex_main_default_model(VertexIn in [[stage_in]],
-                                     constant Uniforms &uniforms [[buffer(11)]])
+                                     constant Uniforms &uniforms [[buffer(UniformsBuffer)]])
 {
     float4 position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * in.position;
     VertexOut out {
         .position = position,
-        .color = in.color,
+        .color = in.color
     };
     return out;
 }

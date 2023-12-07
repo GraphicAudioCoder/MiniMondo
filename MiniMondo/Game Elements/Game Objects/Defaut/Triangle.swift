@@ -15,9 +15,9 @@ class Triangle: DefaultModel {
         ]
         
         let colors: [simd_float3] = [
-            Color.shared.getColor(for: .red),
-            Color.shared.getColor(for: .green),
-            Color.shared.getColor(for: .blue)
+            Colors.shared.getColor(for: .red),
+            Colors.shared.getColor(for: .green),
+            Colors.shared.getColor(for: .blue)
         ]
         
         defaultPipeline = BasicRenderPipeline(device: Renderer.device,
